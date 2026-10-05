@@ -1,0 +1,31 @@
+{
+  "name": "004-label-variants",
+  "description": "番号の後ろにラベルが付く書式((代表)・FAX)、英語ラベルが1行に並ぶ書式、役職だけの行(営業部長)。003 の分類ロジックが他の書式で崩れないことの確認。すべて匿名。",
+  "input": {
+    "imageSize": { "width": 1000, "height": 600 },
+    "source": "vision",
+    "lines": [
+      { "text": "サンプル工業株式会社", "bbox": { "x": 0.05, "y": 0.06, "w": 0.45, "h": 0.06 } },
+      { "text": "営業部長", "bbox": { "x": 0.05, "y": 0.16, "w": 0.15, "h": 0.04 } },
+      { "text": "鈴木 花子", "bbox": { "x": 0.05, "y": 0.35, "w": 0.30, "h": 0.09 } },
+      { "text": "03-1234-5678(代表) FAX 03-1234-5679", "bbox": { "x": 0.05, "y": 0.70, "w": 0.60, "h": 0.035 } },
+      { "text": "Tel 06-1111-2222 Fax 06-1111-2223", "bbox": { "x": 0.05, "y": 0.78, "w": 0.60, "h": 0.035 } },
+      { "text": "suzuki@sample.co.jp", "bbox": { "x": 0.05, "y": 0.86, "w": 0.35, "h": 0.035 } }
+    ]
+  },
+  "expected": {
+    "phone": [
+      { "value": "03-1234-5678", "minConfidence": 0.55 },
+      { "value": "06-1111-2222", "minConfidence": 0.85 }
+    ],
+    "fax": [
+      { "value": "03-1234-5679", "minConfidence": 0.85 },
+      { "value": "06-1111-2223", "minConfidence": 0.85 }
+    ],
+    "title": { "value": "営業部長", "minConfidence": 0.75 },
+    "company": { "value": "サンプル工業株式会社", "minConfidence": 0.85 },
+    "personName": {
+      "full": { "value": "鈴木 花子", "minConfidence": 0.55 }
+    }
+  }
+}

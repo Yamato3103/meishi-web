@@ -1,0 +1,32 @@
+{
+  "name": "meishivault-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "MeishiVault Web (Vite + React + TypeScript). iOS と同じ spec/ 抽出ルール・card.json・LWW を共有する。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "setup:ocr": "bash tools/setup-ocr-assets.sh",
+    "build:icons": "node tools/make-icons.mjs"
+  },
+  "dependencies": {
+    "@sqlite.org/sqlite-wasm": "^3.53.0-build1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "tesseract.js": "^5.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meishivault.local/spec/extraction-result.schema.json",
+  "title": "ExtractionResult",
+  "description": "抽出エンジンの出力。各フィールドは候補配列(信頼度降順)を持ち、確認UIで採用/修正する。",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "email":      { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "url":        { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "phone":      { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "fax":        { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "mobile":     { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "sns":        { "type": "array", "items": { "$ref": "#/$defs/candidate" } },
+    "postalCode": { "$ref": "#/$defs/candidate" },
+    "company":    { "$ref": "#/$defs/candidate" },
+    "department": { "$ref": "#/$defs/candidate" },
+    "title":      { "$ref": "#/$defs/candidate" },
+    "address":    { "$ref": "#/$defs/candidate" },
+    "personName": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "full":       { "$ref": "#/$defs/candidate" },
+        "familyKana": { "$ref": "#/$defs/candidate" },
+        "givenKana":  { "$ref": "#/$defs/candidate" }
+      }
+    }
+  },
+  "$defs": {
+    "candidate": {
+      "type": "object",
+      "required": ["value", "confidence"],
+      "additionalProperties": false,
+      "properties": {
+        "value": { "type": "string" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "sourceLineIndices": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "description": "由来となったOcrDocument.linesのindex。確認UIで原画像ハイライトに使う。"
+        },
+        "normalizedKey": {
+          "type": "string",
+          "description": "突合キー(電話の数字のみ版、会社のサフィックス除去版など)。重複検知E6で使用。"
+        }
+      }
+    }
+  }
+}

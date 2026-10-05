@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meishivault.local/spec/extraction-rules.schema.json",
+  "title": "ExtractionRules",
+  "description": "rules/extraction-rules.json の妥当性検証。CIでルールファイル自体を検査する。",
+  "type": "object",
+  "required": ["version", "fields", "dictionaries"],
+  "additionalProperties": true,
+  "properties": {
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "description": { "type": "string" },
+    "normalization": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "applyNFKC": { "type": "boolean" },
+        "lowercaseEmail": { "type": "boolean" },
+        "keepDigitsOnlyKeyForPhones": { "type": "boolean" }
+      }
+    },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/field" }
+    },
+    "dictionaries": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "companyNormalizationForKey": { "type": "object" }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "required": ["key", "detectors"],
+      "additionalProperties": true,
+      "properties": {
+        "key": {
+          "type": "string",
+          "enum": ["email", "url", "phone", "fax", "mobile", "sns", "postalCode", "company", "department", "title", "personName", "address"]
+        },
+        "cardinality": { "type": "string", "enum": ["single", "list"] },
+        "detectors": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/detector" }
+        },
+        "excludeIfMatchedBy": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "subfields": { "type": "object" },
+        "note": { "type": "string" }
+      }
+    },
+    "detector": {
+      "type": "object",
+      "required": ["kind"],
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["regex", "labeledValue", "dictionaryContains", "prefectureLine", "layoutLargestText", "layoutTopCompany", "furiganaLine"]
+        },
+        "pattern": { "type": "string" },
+        "valuePattern": { "type": "string" },
+        "captureGroup": { "type": "integer", "minimum": 0 },
+        "labels": { "type": "array", "items": { "type": "string" } },
+        "dictionary": { "type": "string" },
+        "normalize": { "type": "string", "enum": ["lowercase", "none"] },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "regex" } } },
+          "then": { "required": ["pattern"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "labeledValue" } } },
+          "then": { "required": ["labels", "valuePattern"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "dictionaryContains" } } },
+          "then": { "required": ["dictionary"] }
+        }
+      ]
+    }
+  }
+}

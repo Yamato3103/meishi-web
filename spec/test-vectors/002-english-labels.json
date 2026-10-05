@@ -1,0 +1,29 @@
+{
+  "name": "002-english-labels",
+  "description": "英語表記主体+英語ラベル(Co., Ltd. / Phone / 国内番号)。ラベル英語・法人格英語の抽出を検証。匿名。",
+  "note": "国際電話(+81表記)は本ルールの想定外(既知の限界)。国内表記のみを対象とする。",
+  "input": {
+    "imageSize": { "width": 1000, "height": 600 },
+    "source": "tesseract",
+    "lines": [
+      { "text": "Sample Trading Co., Ltd.", "bbox": { "x": 0.05, "y": 0.08, "w": 0.50, "h": 0.06 } },
+      { "text": "Sales Division", "bbox": { "x": 0.05, "y": 0.18, "w": 0.25, "h": 0.04 } },
+      { "text": "Sales Manager", "bbox": { "x": 0.05, "y": 0.24, "w": 0.25, "h": 0.04 } },
+      { "text": "Taro Yamada", "bbox": { "x": 0.05, "y": 0.34, "w": 0.32, "h": 0.09 } },
+      { "text": "1-2-3 Marunouchi, Chiyoda-ku, Tokyo", "bbox": { "x": 0.05, "y": 0.66, "w": 0.60, "h": 0.035 } },
+      { "text": "Phone: 03-1234-5678", "bbox": { "x": 0.05, "y": 0.74, "w": 0.30, "h": 0.035 } },
+      { "text": "taro@sample.com", "bbox": { "x": 0.05, "y": 0.82, "w": 0.30, "h": 0.035 } },
+      { "text": "www.sample.com", "bbox": { "x": 0.05, "y": 0.88, "w": 0.30, "h": 0.035 } }
+    ]
+  },
+  "expected": {
+    "email": [ { "value": "taro@sample.com", "minConfidence": 0.9 } ],
+    "url": [ { "value": "www.sample.com", "minConfidence": 0.7 } ],
+    "phone": [ { "value": "03-1234-5678", "minConfidence": 0.6 } ],
+    "company": { "value": "Sample Trading Co., Ltd.", "minConfidence": 0.85 },
+    "title": { "value": "Sales Manager", "minConfidence": 0.75 },
+    "personName": {
+      "full": { "value": "Taro Yamada", "minConfidence": 0.55 }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-ssr/
+*.local
+.DS_Store
+coverage/
+*.tsbuildinfo
+
+# OCR 資産(node_modules からコピー / ダウンロード。大きいので commit しない)
+# 生成: npm run setup:ocr(tools/setup-ocr-assets.sh)
+public/tesseract/
+public/tessdata/

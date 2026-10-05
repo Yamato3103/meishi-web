@@ -1,0 +1,80 @@
+{
+  "identifier" : "8A21C3F0",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "120",
+      "familyShareable" : false,
+      "internalID" : "6001000001",
+      "localizations" : [
+        {
+          "description" : "開発を応援するチップです。機能は増えません。",
+          "displayName" : "ちいさな応援",
+          "locale" : "ja_JP"
+        },
+        {
+          "description" : "A small tip to support development. Unlocks nothing.",
+          "displayName" : "Small Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.meishivault.app.tip.small",
+      "referenceName" : "Tip Small",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "370",
+      "familyShareable" : false,
+      "internalID" : "6001000002",
+      "localizations" : [
+        {
+          "description" : "開発を応援するチップです。機能は増えません。",
+          "displayName" : "うれしい応援",
+          "locale" : "ja_JP"
+        },
+        {
+          "description" : "A nice tip to support development. Unlocks nothing.",
+          "displayName" : "Medium Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.meishivault.app.tip.medium",
+      "referenceName" : "Tip Medium",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "730",
+      "familyShareable" : false,
+      "internalID" : "6001000003",
+      "localizations" : [
+        {
+          "description" : "開発を応援するチップです。機能は増えません。",
+          "displayName" : "とても大きな応援",
+          "locale" : "ja_JP"
+        },
+        {
+          "description" : "A big tip to support development. Unlocks nothing.",
+          "displayName" : "Large Tip",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.meishivault.app.tip.large",
+      "referenceName" : "Tip Large",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "",
+    "_developerTeamID" : "",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "ja_JP",
+    "_storefront" : "JPN",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

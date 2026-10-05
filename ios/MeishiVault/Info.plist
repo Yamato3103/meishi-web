@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  MeishiVault の追加 Info.plist(部分)。
+
+  カメラ/連絡先の用途文言・画面向き・輸出コンプライアンス等は
+  GENERATE_INFOPLIST_FILE=YES + INFOPLIST_KEY_* から自動生成され、
+  このファイルに「マージ」される(ここには書かない)。
+
+  ここに置くのは、フラットな INFOPLIST_KEY_* では表現できない
+  「入れ子の辞書」と「URL Types(配列)」だけ = Google Drive 同期(任意)の設定。
+
+  使い方: docs/google-drive-setup.md を参照。
+  ClientID / RedirectScheme を空のままにしておけば Drive 同期は表示されず、
+  フォルダ同期(端末内 / iCloud Drive)はそのまま使える。実 ID を入れると有効化される。
+-->
+<plist version="1.0">
+<dict>
+	<!-- 同期フォルダを Files アプリに見せる。
+	     INFOPLIST_KEY_UIFileSharingEnabled は Xcode 26 の生成plistで無視される
+	     (実測で出力に入らなかった)ため、ここに直接置く。
+	     LSSupportsOpeningDocumentsInPlace は INFOPLIST_KEY 経由で有効(併用でその場編集可)。 -->
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>GoogleDriveOAuth</key>
+	<dict>
+		<!-- 例: 1234567890-abcdefg.apps.googleusercontent.com -->
+		<key>ClientID</key>
+		<string></string>
+		<!-- 例: com.googleusercontent.apps.1234567890-abcdefg (ClientID の逆順) -->
+		<key>RedirectScheme</key>
+		<string></string>
+	</dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.meishivault.app.googledrive</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<!-- 上の RedirectScheme と完全一致させる(逆順クライアントID)。
+				     未設定のままでも無害(Drive を使わなければ呼ばれない)。 -->
+				<string>com.googleusercontent.apps.YOUR-CLIENT-ID</string>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

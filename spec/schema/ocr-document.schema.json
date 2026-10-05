@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://meishivault.local/spec/ocr-document.schema.json",
+  "title": "OcrDocument",
+  "description": "抽出エンジンの共通入力。iOS(Vision)/Web(Tesseract)はOCR結果をこの形へ整形する。",
+  "type": "object",
+  "required": ["imageSize", "lines"],
+  "additionalProperties": false,
+  "properties": {
+    "imageSize": {
+      "type": "object",
+      "required": ["width", "height"],
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "source": {
+      "type": "string",
+      "enum": ["vision", "tesseract", "manual"],
+      "description": "どのOCRから来たか(将来のチューニング/計測用)。"
+    },
+    "lines": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/line" }
+    }
+  },
+  "$defs": {
+    "line": {
+      "type": "object",
+      "required": ["text", "bbox"],
+      "additionalProperties": false,
+      "properties": {
+        "text": { "type": "string" },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "OCRの行信頼度。欠損時は1.0扱い。"
+        },
+        "bbox": { "$ref": "#/$defs/bbox" }
+      }
+    },
+    "bbox": {
+      "type": "object",
+      "description": "画像左上原点、0..1正規化。Visionは上下反転して合わせる。",
+      "required": ["x", "y", "w", "h"],
+      "additionalProperties": false,
+      "properties": {
+        "x": { "type": "number", "minimum": 0, "maximum": 1 },
+        "y": { "type": "number", "minimum": 0, "maximum": 1 },
+        "w": { "type": "number", "minimum": 0, "maximum": 1 },
+        "h": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    }
+  }
+}

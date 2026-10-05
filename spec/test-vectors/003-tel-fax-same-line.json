@@ -1,0 +1,28 @@
+{
+  "name": "003-tel-fax-same-line",
+  "description": "TEL と FAX が同じ行に並ぶ名刺、および部署と役職が同じ行に並ぶ名刺(日本の名刺ではごく普通の書式)。すべて匿名。",
+  "note": "2026-10-05 にデモ名刺の実機確認で発見: FAX ラベルを含む行の番号がすべて FAX になり電話番号が失われた/部署と役職に同じ行が入った。番号ごとに直前のラベルで種別を決め、部署+役職の1行は分割する。",
+  "input": {
+    "imageSize": { "width": 1000, "height": 600 },
+    "source": "vision",
+    "lines": [
+      { "text": "株式会社サンプル商事", "bbox": { "x": 0.05, "y": 0.06, "w": 0.45, "h": 0.06 } },
+      { "text": "営業本部 第一営業部  課長", "bbox": { "x": 0.05, "y": 0.16, "w": 0.45, "h": 0.04 } },
+      { "text": "山田 太郎", "bbox": { "x": 0.05, "y": 0.35, "w": 0.30, "h": 0.09 } },
+      { "text": "やまだ たろう", "bbox": { "x": 0.05, "y": 0.30, "w": 0.20, "h": 0.03 } },
+      { "text": "〒100-0001 東京都千代田区丸の内1-2-3", "bbox": { "x": 0.05, "y": 0.66, "w": 0.60, "h": 0.035 } },
+      { "text": "TEL 03-1234-5678 / FAX 03-1234-5679", "bbox": { "x": 0.05, "y": 0.74, "w": 0.60, "h": 0.035 } },
+      { "text": "yamada@sample.co.jp", "bbox": { "x": 0.05, "y": 0.86, "w": 0.35, "h": 0.035 } }
+    ]
+  },
+  "expected": {
+    "phone": [ { "value": "03-1234-5678", "minConfidence": 0.85 } ],
+    "fax": [ { "value": "03-1234-5679", "minConfidence": 0.85 } ],
+    "department": { "value": "営業本部 第一営業部", "minConfidence": 0.6 },
+    "title": { "value": "課長", "minConfidence": 0.75 },
+    "email": [ { "value": "yamada@sample.co.jp", "minConfidence": 0.9 } ],
+    "personName": {
+      "full": { "value": "山田 太郎", "minConfidence": 0.55 }
+    }
+  }
+}
