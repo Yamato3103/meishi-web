@@ -42,6 +42,9 @@ jobs:
         run: npm run build
         env:
           VITE_BASE_PATH: /${{ github.event.repository.name }}/
+          # Google OAuth クライアント ID(ウェブ)。公開値でシークレットではない(GIS トークンモデルは
+          # クライアントシークレットを使わない)。承認済みオリジンは https://yamato3103.github.io。
+          VITE_GOOGLE_CLIENT_ID: 321351373389-3vs12op9llovlieonh9idia41s1nqdmc.apps.googleusercontent.com
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
